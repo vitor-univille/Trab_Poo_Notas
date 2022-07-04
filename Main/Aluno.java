@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.ArrayList;
+
 public class Aluno {
     private String nome;
     Notas nota = new Notas();
@@ -15,7 +17,14 @@ public class Aluno {
         this.nota.addProva(nome,nota,peso);
     }
 
+    public ArrayList<Trabalho> getTrabalhos(){
+        return nota.getTrabalhos();
+    }
+    public ArrayList<Prova> getProvas(){
+        return nota.getProva();
+    }
+
     public double mediaFinal(){
-        return (nota.mediaNopeTrab() + nota.mediaNopeProv()) / (nota.calcPesoTrab() + nota.calcPesoProv());
+        return nota.mediaNotapeso() / nota.calcPeso();
     }
 }

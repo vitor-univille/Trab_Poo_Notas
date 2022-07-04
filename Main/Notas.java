@@ -3,8 +3,8 @@ package Main;
 import java.util.ArrayList;
 
 public class Notas{
-    private ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
-    private ArrayList<Prova> prova = new ArrayList<Prova>();
+    protected ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
+    protected ArrayList<Prova> prova = new ArrayList<Prova>();
 
     public void addTrab(String nome, double nota, double peso){
         Trabalho trab = new Trabalho(nome,nota, peso);
@@ -15,34 +15,44 @@ public class Notas{
         prova.add(prov);
     }
 
-    public double mediaNopeTrab(){
-        double aux = 0;
+    public ArrayList<Trabalho> getTrabalhos() {
+        return trabalhos;
+    }
+
+    public ArrayList<Prova> getProva() {
+        return prova;
+    }
+
+    public double mediaNotapeso(){
+        double mediat = 0;
+        double mediap = 0;
         for (int i = 0; i < trabalhos.size(); i++){
-            aux += trabalhos.get(i).nota * trabalhos.get(i).peso;
+            mediat += trabalhos.get(i).nota * trabalhos.get(i).peso;
         }
-        return aux;
-    }
-    public double mediaNopeProv(){
-        double aux = 0;
         for (int i = 0; i < prova.size(); i++){
-            aux += prova.get(i).nota * prova.get(i).peso;
+            mediap += prova.get(i).nota * prova.get(i).peso;
         }
-        return aux;
+        return mediat + mediap;
     }
 
-    public double calcPesoTrab(){
-        double aux = 0;
-        for (int i = 0; i < trabalhos.size() - 1; i++){
-            aux += trabalhos.get(i).peso + trabalhos.get(i+1).peso;
+    public double calcPeso(){
+        double mediat = 0;
+        double mediap = 0;
+        if (trabalhos.size() > 1){
+            for (int i = 0; i < trabalhos.size() - 1; i++){
+                mediat += trabalhos.get(i).peso + trabalhos.get(i+1).peso;
+            }
+        }else{
+            mediat = trabalhos.get(0).peso;
         }
-        return aux;
-    }
+        if (prova.size() > 1){
+            for (int i = 0; i < prova.size() - 1; i++){
+                mediap += prova.get(i).peso + prova.get(i+1).peso;
+            }
+        }else{
+            mediap = prova.get(0).peso;
+        }
 
-    public double calcPesoProv(){
-        double aux = 0;
-        for (int i = 0; i < prova.size() - 1; i++){
-            aux += prova.get(i).peso + prova.get(i+1).peso;
-        }
-        return aux;
+        return mediat + mediap;
     }
 }
